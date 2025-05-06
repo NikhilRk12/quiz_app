@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quiz Question</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Registration Number: {{ reg_number }}</h2>
+        <div id="timer-label" class="timer">Timer: {{ timer_seconds }}s</div>
+
+        <div class="question-container">
+            <h3>{{ question_data.question }}</h3>
+            <form id="quiz-form" action="{{ url_for('submit_answer') }}" method="post">
+                {% for option in question_data.options %}
+                <div class="option">
+                    <input type="radio" name="option" value="{{ option }}" id="option{{ loop.index }}" required>
+                    <label for="option{{ loop.index }}">{{ option }}</label>
+                </div>
+                {% endfor %}
+                <input type="hidden" name="time_up" id="time_up_field" value="false">
+                <button type="submit" id="submit-btn" class="btn">Submit Answer</button>
+            </form>
+        </div>
+        <button id="start-timer-btn" class="btn">Start Timer</button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script> <!-- Link to main.js -->
+</body>
+</html>

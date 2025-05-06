@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quiz Spinner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the AI Quiz Spinner</h1>
+        {% if feedback %}
+            <p class="feedback {{ 'correct' if '✅' in feedback else 'wrong' }}">{{ feedback }}</p>
+        {% endif %}
+
+        {% if reg_number %}
+            <h2>Your Registration Number: {{ reg_number }}</h2>
+        {% endif %}
+
+        {% if not quiz_started %}
+            <form action="{{ url_for('start_quiz') }}" method="post">
+                <button type="submit" class="btn">Start Quiz</button>
+            </form>
+        {% else %}
+            <form action="{{ url_for('spin_wheel') }}" method="post">
+                <button type="submit" class="btn spin-btn">🎯 Spin the Wheel</button>
+            </form>
+            <p>Press "Spin the Wheel" to get a question.</p>
+        {% endif %}
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script> <!-- Link to main.js -->
+</body>
+</html>
